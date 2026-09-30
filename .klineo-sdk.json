@@ -1,0 +1,94 @@
+{
+  "schema": "klineo-sdk-export-v1",
+  "language": "python",
+  "repository": "Klineo-Ecosystem/klineo-python-sdk",
+  "source": "packages/liquidity-api/sdk/python",
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 850,
+      "sha256": "64cc24284d207912c563914a0d9c6e6733f501fe898ef07a9cf2dd96dd4054d1"
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "bytes": 1427,
+      "sha256": "5398f8d2af2b006d4fd4a5b56be507b41d506a70494b983760d980bb0245e8e1"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 81,
+      "sha256": "e09de92d55e5e1de6986bfe9c5f4d900f9bce58cdd00bcd53f8cd3a4a10a64ad"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 660,
+      "sha256": "8d6f168ed5b1177c780f317617790b448cc3a1940c489f46ad30900b039afc58"
+    },
+    {
+      "path": "LICENSE.txt",
+      "bytes": 370,
+      "sha256": "c94bce8d911f5172957736a0562f9298670265d92c0bc2d2f94b84023da376b4"
+    },
+    {
+      "path": "MANIFEST.in",
+      "bytes": 152,
+      "sha256": "33977b39f4387a59b8faedd69341a7ed41cd4c753b92589adb258ae0cb97b09b"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7937,
+      "sha256": "8def78797e286d076082bbc2bcbff81c4c14ab349ce9895191d36fb79a1c4876"
+    },
+    {
+      "path": "RELEASE.md",
+      "bytes": 1371,
+      "sha256": "26a7e434eb0f23b2aa3b1ccf09a56146d7eb6a4b7d344e70e7ac19098af396b0"
+    },
+    {
+      "path": "examples/download_passport.py",
+      "bytes": 611,
+      "sha256": "3879b3002330150d87d7d2b134d5379f0fb969a9a7a35207a8cea00a6458b849"
+    },
+    {
+      "path": "examples/list_scores.py",
+      "bytes": 446,
+      "sha256": "fa3db0ed306ac4956ef0689e6bc18e7125c935feb5f193b41ba2be140bd47c04"
+    },
+    {
+      "path": "klineo_liquidity_os/__init__.py",
+      "bytes": 282,
+      "sha256": "6259f5563b41b677caf82114c7a04d12e8614b4a00b5f63e5b58058aae436e22"
+    },
+    {
+      "path": "klineo_liquidity_os/client.py",
+      "bytes": 533249,
+      "sha256": "db52d0a98effd1ba5560b2bfd1b94599d2e0bd0850bd283b86da7d19d2440baf"
+    },
+    {
+      "path": "klineo_liquidity_os/py.typed",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "klineo_liquidity_os/runtime.py",
+      "bytes": 10213,
+      "sha256": "33d911e62d1a9c398136c093b390b05c70acb2a0f3c9d7ab4b7333060f27c773"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 970,
+      "sha256": "0250d8b307ea18e94228e08512e3d4bc62b1fa3c25aa907b43e17f1c335fbf13"
+    },
+    {
+      "path": "tests/test_client.py",
+      "bytes": 11983,
+      "sha256": "183e5274c93eab63e937ee4a208b8c820e3077b8c3e55ab709f53ab93b4c6bd8"
+    },
+    {
+      "path": "tests/test_redirects.py",
+      "bytes": 1320,
+      "sha256": "78120d14acf9407472c8ea76b5a421e6c026b960f749ef254d5ab1ce7e677ef3"
+    }
+  ],
+  "sha256": "2bffee511c143dd62dcae4fd7a684ac4568b0ea91080e27f41481eeb2e891731"
+}

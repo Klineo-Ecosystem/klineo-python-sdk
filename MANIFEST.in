@@ -1,0 +1,4 @@
+include README.md LICENSE.txt CHANGELOG.md RELEASE.md
+include klineo_liquidity_os/py.typed
+recursive-include examples *.py
+recursive-include tests *.py
