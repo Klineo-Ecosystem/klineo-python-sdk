@@ -21,8 +21,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 660,
-      "sha256": "8d6f168ed5b1177c780f317617790b448cc3a1940c489f46ad30900b039afc58"
+      "bytes": 1061,
+      "sha256": "a8cfd4f99df7778b8e68761d0e1b47f2a7d4624789a5d7cb900dc917baabede8"
     },
     {
       "path": "LICENSE.txt",
@@ -36,13 +36,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 7937,
-      "sha256": "8def78797e286d076082bbc2bcbff81c4c14ab349ce9895191d36fb79a1c4876"
+      "bytes": 8485,
+      "sha256": "a120fe66076db7b0889a7b3d1c4d0ad067a27fbede98573dda165e8d79903040"
     },
     {
       "path": "RELEASE.md",
-      "bytes": 1371,
-      "sha256": "26a7e434eb0f23b2aa3b1ccf09a56146d7eb6a4b7d344e70e7ac19098af396b0"
+      "bytes": 1477,
+      "sha256": "701b04b0ec091a88e35b03d3f5a63763871626ed629dd45a19f9efcf11b486f9"
     },
     {
       "path": "examples/download_passport.py",
@@ -57,12 +57,12 @@
     {
       "path": "klineo_liquidity_os/__init__.py",
       "bytes": 282,
-      "sha256": "6259f5563b41b677caf82114c7a04d12e8614b4a00b5f63e5b58058aae436e22"
+      "sha256": "8348a6ca3ac257ce0a1720e59325cea027d378d1dafe63de2530249cd199bb37"
     },
     {
       "path": "klineo_liquidity_os/client.py",
-      "bytes": 533249,
-      "sha256": "db52d0a98effd1ba5560b2bfd1b94599d2e0bd0850bd283b86da7d19d2440baf"
+      "bytes": 535467,
+      "sha256": "db2736ad4afacd903a0fc2e581ef340b8aa809dd032ba2bd846d735ff2453fd8"
     },
     {
       "path": "klineo_liquidity_os/py.typed",
@@ -77,12 +77,12 @@
     {
       "path": "pyproject.toml",
       "bytes": 970,
-      "sha256": "0250d8b307ea18e94228e08512e3d4bc62b1fa3c25aa907b43e17f1c335fbf13"
+      "sha256": "4e7dfe003ff6d3947b222671e16dbfacd98036943028bff077e5683667a880ae"
     },
     {
       "path": "tests/test_client.py",
-      "bytes": 11983,
-      "sha256": "183e5274c93eab63e937ee4a208b8c820e3077b8c3e55ab709f53ab93b4c6bd8"
+      "bytes": 13892,
+      "sha256": "0aae834fe9194bf4481fd679ea911bd475d3e6837d37bf8fe632d55993ce2c28"
     },
     {
       "path": "tests/test_redirects.py",
@@ -90,5 +90,5 @@
       "sha256": "78120d14acf9407472c8ea76b5a421e6c026b960f749ef254d5ab1ce7e677ef3"
     }
   ],
-  "sha256": "2bffee511c143dd62dcae4fd7a684ac4568b0ea91080e27f41481eeb2e891731"
+  "sha256": "be746e07a27ac8dcda37beda603b4b6100548ff22c3ec3bc4a82c6eb3717195d"
 }

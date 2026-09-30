@@ -3867,6 +3867,34 @@ class PartnerPreparationContext(TypedDict):
     proposalPreparationAllowed: Literal[True]
     externalDeliveryAvailable: bool
 
+class PartnerPreparationReceipt(TypedDict):
+    preparationEventId: str
+    preparationHash: Hash
+    proposalId: str
+    partnerId: str
+    partnerOrganizationId: str
+    partnerActorId: str
+    issuerOrganizationId: str
+    consentId: str
+    consentResourceVersion: Hash
+    consentArtifactHash: Hash
+    partnerConfigurationResourceVersion: Hash
+    partnerConfigurationArtifactHash: Hash
+    deliveryJobId: Union[str, None]
+    issuerImportAndStandardApprovalRequired: Literal[True]
+    executionAuthorityGranted: Literal[False]
+    safeAuthorityGranted: Literal[False]
+    custodyAuthorityGranted: Literal[False]
+
+class PartnerPreparationReceiptRecoveryVariant1(TypedDict):
+    state: Literal["ACCEPTED"]
+    receipt: PartnerPreparationReceipt
+
+class PartnerPreparationReceiptRecoveryVariant2(TypedDict):
+    state: Literal["UNRESOLVED"]
+
+PartnerPreparationReceiptRecovery: TypeAlias = Union[PartnerPreparationReceiptRecoveryVariant1, PartnerPreparationReceiptRecoveryVariant2]
+
 class PartnerPreparationInboxEntry(TypedDict):
     eventId: str
     consentId: str
@@ -3935,6 +3963,10 @@ class PartnerDomainChallengeVerificationVariant1(TypedDict):
     validUntil: str
     signature: str
 
+class PartnerDomainChallengeProvisioningOperationVariant1(TypedDict):
+    id: str
+    startedAt: str
+
 class PartnerDomainChallenge(TypedDict):
     id: str
     organizationId: str
@@ -3949,6 +3981,7 @@ class PartnerDomainChallenge(TypedDict):
     state: Literal["PENDING", "VERIFIED", "REVOKED"]
     verification: Union[PartnerDomainChallengeVerificationVariant1, None]
     customHostname: Union[PartnerCustomHostname, None]
+    provisioningOperation: NotRequired[Union[PartnerDomainChallengeProvisioningOperationVariant1, None]]
 
 class PartnerDomainStatus(TypedDict):
     challenge: PartnerDomainChallenge
@@ -9085,7 +9118,7 @@ class ProposalReviewDecisionEventPayloadVariant1(TypedDict):
     decidedAt: str
     proposalPacketHash: Hash
     decision: Literal["APPROVE"]
-    evidenceHash: Hash
+    evidenceHash: str
 
 class ProposalReviewDecisionEventPayloadVariant2(TypedDict):
     actorId: str
@@ -9094,7 +9127,7 @@ class ProposalReviewDecisionEventPayloadVariant2(TypedDict):
     proposalPacketHash: Hash
     decision: Literal["REJECT"]
     rejectionReason: str
-    evidenceHash: NotRequired[Hash]
+    evidenceHash: NotRequired[str]
 
 class ProposalReviewDecisionEvent(TypedDict):
     organizationId: str
@@ -9215,7 +9248,7 @@ class ProposalWorkspaceReviewProposal(TypedDict):
 class ProposalWorkspaceReviewApprovalsItem(TypedDict):
     actorId: str
     decidedAt: str
-    evidenceHash: Hash
+    evidenceHash: str
 
 class ProposalWorkspaceReviewApprovalProgress(TypedDict):
     approved: int
@@ -13108,6 +13141,15 @@ class GetPartnerPreparationContextQuery(TypedDict):
 class GetPartnerPreparationContextResult(TypedDict):
     data: PartnerPreparationContext
 
+class GetPartnerPreparationReceiptRecoveryPath(TypedDict):
+    partnerId: str
+
+class GetPartnerPreparationReceiptRecoveryQuery(TypedDict):
+    issuerOrganizationId: str
+
+class GetPartnerPreparationReceiptRecoveryResult(TypedDict):
+    data: PartnerPreparationReceiptRecovery
+
 class ListPartnerPreparationsResult(TypedDict):
     data: list[PartnerPreparationInboxEntry]
 
@@ -13138,6 +13180,10 @@ class GetPartnerPreparationStatusQuery(TypedDict):
 
 class GetPartnerPreparationStatusResult(TypedDict):
     data: PartnerPreparationStatus
+
+class ListPartnerDomainChallengesQuery(TypedDict):
+    partnerId: NotRequired[str]
+    beforeChallengeId: NotRequired[str]
 
 class ListPartnerDomainChallengesResult(TypedDict):
     data: list[PartnerDomainChallenge]
@@ -14215,6 +14261,10 @@ class LiquidityOsClient(LiquidityOsTransport):
         """Read the exact current actor-scoped consent for preparing an issuer packet"""
         return cast(GetPartnerPreparationContextResult, self._request("GET", "/partner-preparation-contexts/{partnerId}", path=path, query=query, accept="application/json"))
 
+    def get_partner_preparation_receipt_recovery(self, *, path: GetPartnerPreparationReceiptRecoveryPath, query: GetPartnerPreparationReceiptRecoveryQuery, idempotency_key: str) -> GetPartnerPreparationReceiptRecoveryResult:
+        """Recover the initiating partner actor's durable preparation receipt using its original operation key"""
+        return cast(GetPartnerPreparationReceiptRecoveryResult, self._request("GET", "/partner-preparation-receipts/{partnerId}", path=path, query=query, idempotency_key=idempotency_key, accept="application/json"))
+
     def list_partner_preparations(self) -> ListPartnerPreparationsResult:
         """Read consent-bound partner packets awaiting or completed in issuer review"""
         return cast(ListPartnerPreparationsResult, self._request("GET", "/partner-preparations", accept="application/json"))
@@ -14231,9 +14281,9 @@ class LiquidityOsClient(LiquidityOsTransport):
         """Read partner-owned delivery and issuer review status for one exact packet"""
         return cast(GetPartnerPreparationStatusResult, self._request("GET", "/partner-preparation-status/{partnerId}/{eventId}", path=path, query=query, accept="application/json"))
 
-    def list_partner_domain_challenges(self) -> ListPartnerDomainChallengesResult:
+    def list_partner_domain_challenges(self, *, query: Optional[ListPartnerDomainChallengesQuery] = None) -> ListPartnerDomainChallengesResult:
         """List tenant-owned domain ownership and HTTPS onboarding challenges"""
-        return cast(ListPartnerDomainChallengesResult, self._request("GET", "/partner-domain-challenges", accept="application/json"))
+        return cast(ListPartnerDomainChallengesResult, self._request("GET", "/partner-domain-challenges", query=query, accept="application/json"))
 
     def create_partner_domain_challenge(self, *, body: CreatePartnerDomainChallengeBody, idempotency_key: str) -> CreatePartnerDomainChallengeResult:
         """Create an exact-host DNS ownership challenge for an approved domain verifier"""

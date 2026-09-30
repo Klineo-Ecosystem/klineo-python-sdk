@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "klineo-liquidity-os"
-version = "2.0.0"
+version = "2.1.0"
 description = "Typed, non-custodial Python client for the Klineo Liquidity Operating System v2 API"
 readme = "README.md"
 license = "LicenseRef-Proprietary"

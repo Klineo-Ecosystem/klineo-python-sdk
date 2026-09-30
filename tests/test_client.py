@@ -60,6 +60,38 @@ class ClientTests(unittest.TestCase):
         self.client.get_scores(path={"id": "record/with?reserved#parts"})
         self.assertIn("record%2Fwith%3Freserved%23parts", self.request().full_url)
 
+    def test_domain_challenge_directory_sends_partner_and_older_page_cursor(self):
+        self.opener.open.return_value = Response(b'{"data":[]}')
+        result = self.client.list_partner_domain_challenges(query={
+            "partnerId": "partner:selected_1",
+            "beforeChallengeId": "00000000-0000-4000-8000-000000000123",
+        })
+        request = self.request()
+        self.assertEqual(request.method, "GET")
+        self.assertEqual(urllib.parse.urlsplit(request.full_url).path, "/api/liquidity-studio/v2/partner-domain-challenges")
+        self.assertEqual(urllib.parse.parse_qs(urllib.parse.urlsplit(request.full_url).query), {
+            "partnerId": ["partner:selected_1"],
+            "beforeChallengeId": ["00000000-0000-4000-8000-000000000123"],
+        })
+        self.assertIsNone(request.data)
+        self.assertEqual(result, {"data": []})
+
+    def test_partner_receipt_recovery_uses_original_key_without_resubmitting(self):
+        self.opener.open.return_value = Response(b'{"data":{"state":"UNRESOLVED"}}')
+        result = self.client.get_partner_preparation_receipt_recovery(
+            path={"partnerId": "partner/target"},
+            query={"issuerOrganizationId": "org_issuer"},
+            idempotency_key="original-preparation-key",
+        )
+        request = self.request()
+        self.assertEqual(request.method, "GET")
+        self.assertEqual(urllib.parse.urlsplit(request.full_url).path, "/api/liquidity-studio/v2/partner-preparation-receipts/partner%2Ftarget")
+        self.assertEqual(urllib.parse.parse_qs(urllib.parse.urlsplit(request.full_url).query), {"issuerOrganizationId": ["org_issuer"]})
+        self.assertEqual(request.get_header("Idempotency-key"), "original-preparation-key")
+        self.assertIsNone(request.get_header("If-match"))
+        self.assertIsNone(request.data)
+        self.assertEqual(result, {"data": {"state": "UNRESOLVED"}})
+
     def test_mutation_uses_exact_version_and_idempotency_without_amount_conversion(self):
         amount = "900719925474099300000000000001"
         self.client.supersede_intents(path={"id": "intent-1"}, body={"payload": {"capitalCeilingQuote": amount}}, if_match="resource-v1", idempotency_key="same-logical-request")

@@ -2,12 +2,14 @@
 
 Typed Python client for the Klineo Liquidity Operating System v2 API. Python 3.11 or newer is required. The SDK uses the Python standard library and has no runtime dependencies.
 
+SDK version: `2.1.0`. API contract version: `2.0.0`.
+
 Repository: [Klineo-Ecosystem/klineo-python-sdk](https://github.com/Klineo-Ecosystem/klineo-python-sdk). Developer documentation: [docs.klineo.io](https://docs.klineo.io).
 
 ## Install from source
 
 ```sh
-git clone https://github.com/Klineo-Ecosystem/klineo-python-sdk.git
+git clone --branch v2.1.0 https://github.com/Klineo-Ecosystem/klineo-python-sdk.git
 cd klineo-python-sdk
 python3 -m venv .venv
 . .venv/bin/activate
@@ -15,6 +17,8 @@ python -m pip install .
 ```
 
 Use a release tag or reviewed commit when pinning a production installation. PyPI publication is a separate release step; the distribution name is `klineo-liquidity-os` and the import name is `klineo_liquidity_os`.
+
+SDK 2.1.0 adds `get_partner_preparation_receipt_recovery` with `PartnerPreparationReceipt` and `PartnerPreparationReceiptRecovery` types. The operation requires the initiating actor's authorized interactive session and accepts the partner ID, issuer organization ID and original preparation `idempotency_key`. `ACCEPTED` includes the verified committed receipt; `UNRESOLVED` does not establish that a fresh preparation is safe. Recovery does not submit or retry a preparation.
 
 ## Configure the API
 
